@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:info_toon/widgets/Button.dart';
+import 'package:info_toon/widgets/currency_card.dart';
 
 // ignore: slash_for_doc_comments
 /**
@@ -18,12 +20,62 @@ import 'package:flutter/material.dart';
  * CupertinoApp : IOS Style
  * Scaffold : 화면의 구조를 잡는 역할.
  *        Flutter의 규칙에는 모든 widget에 scaffold를 가져야 한다.
+ * 
+ * SingleChildScrollView : 화면의 영역 그 이상으로 Widget들이 생겨날 때 사용자가 스크롤링 하여 그 아래의 내용들을 확인 할 수 았도록 하는 Widget
+ * 
  */
 
 // ignore: slash_for_doc_comments
 /**
  * Dart
  * Named Parameter로 Class를 만드는 방법.
+ * 
+ * constant 
+ *  : 절대 바뀌지 않는 변수. 
+ *  : compile전에 value를 사전에 알 수 있는 변수.
+ */
+
+// ignore: slash_for_doc_comments
+/**
+ * Column
+ *  : crossAxisAlignment : 수평(가로) 방향 (horizontal)
+ *  : mainAxisAlignment : 수직(세로) 방향 (vertical)
+ * Row
+ *  : crossAxisAlignment : 수직(세로) 방향 (vertical)
+ *  : mainAxisAlignment : 수평(가로) 방향 (horizontal)
+ *      
+ * SizedBox() : 크기가 있는 상자
+ * 
+ * Text() : 에 스타일을 적용하는 방법
+ * 
+ * CustomColor 
+ *  : Color(0xFF000000)
+ *  : Color.fromRGBO(r, g, b, opacity)
+ *  : Color.fromARGB(255, r, g, b)
+ *  : Colors.white.withOpacity(0.8)
+ * 
+ * Container
+ *  : Div
+ *  child를 가지고 있는 박스영역 
+ * decoration : BoxDecoration
+ *  : borderRadius 지정
+ * clipBehavior: Clip.none
+ *  : clipBehavior: Clip.hardEdge
+ *  : Container에서 벗어나는 widget에 대한 처리
+ * 
+ * Transform.scale()
+ *  : 크기변화
+ * Transform.translate()
+ *  : 위치이동
+ *  : offset() : 지정한 x,y 만큼 이동
+ * 
+ */
+
+// ignore: slash_for_doc_comments
+/**
+ * Widget Inspector 를 통해 Layout이 헷갈릴때 참조하기
+ * GuideLine Mode
+ * Search Mode
  */
 
 class Player {
@@ -43,14 +95,130 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          elevation: 5,
-          backgroundColor: Color.fromARGB(231, 71, 175, 162),
-          centerTitle: false,
-          title: Text('Hello flutter!'),
-        ),
-        body: Center(
-          child: Text('Hello world!'),
+        backgroundColor: const Color(0xFF181818),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 80,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        const Text(
+                          'Hey, Selena',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 28,
+                              fontWeight: FontWeight.w800),
+                        ),
+                        Text(
+                          'Welcome back',
+                          style: TextStyle(
+                              color: Colors.white.withOpacity(0.8),
+                              fontSize: 18),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 60,
+                ),
+                Text(
+                  'Total Balance',
+                  style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.white.withOpacity(0.8),
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Text(
+                  '\$5 194 482',
+                  style: TextStyle(
+                    fontSize: 44,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Button(
+                        text: 'Transfer',
+                        bgColor: Color(0xFFF1B338),
+                        textColor: Colors.black),
+                    Button(
+                        text: 'Request',
+                        bgColor: Color(0xFF1F2123),
+                        textColor: Colors.white)
+                  ],
+                ),
+                const SizedBox(
+                  height: 80,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Wallets',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 35,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      'View All',
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.8),
+                        fontSize: 18,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const CurrencyCard(
+                  name: 'Euro',
+                  code: 'EUR',
+                  amount: '6 428',
+                  icon: Icons.euro_rounded,
+                  isInverted: false,
+                  order: 1,
+                ),
+                const CurrencyCard(
+                  name: 'Bitcoin',
+                  code: 'BTC',
+                  amount: '9 785',
+                  icon: Icons.currency_bitcoin_rounded,
+                  isInverted: true,
+                  order: 2,
+                ),
+                const CurrencyCard(
+                  name: 'Dollar',
+                  code: 'USD',
+                  amount: '428',
+                  icon: Icons.attach_money_rounded,
+                  isInverted: false,
+                  order: 3,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
