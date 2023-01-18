@@ -122,49 +122,50 @@ class _DetailScreenState extends State<DetailScreen> {
                 height: 25,
               ),
               FutureBuilder(
-                  future: episodes,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Column(
-                        children: [
-                          for (var episode in snapshot.data!)
-                            Container(
-                              margin: const EdgeInsets.only(
-                                bottom: 8,
+                future: episodes,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                      children: [
+                        for (var episode in snapshot.data!)
+                          Container(
+                            margin: const EdgeInsets.only(
+                              bottom: 8,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade100,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 15,
+                                horizontal: 20,
                               ),
-                              decoration: BoxDecoration(
-                                color: Colors.grey.shade100,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 15,
-                                  horizontal: 20,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      episode.title,
-                                      style: TextStyle(
-                                        color: Colors.grey.shade800,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    episode.title,
+                                    style: TextStyle(
+                                      color: Colors.grey.shade800,
+                                      fontWeight: FontWeight.w500,
                                     ),
-                                    Icon(
-                                      Icons.chevron_right_rounded,
-                                      color: Colors.grey.shade900,
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  Icon(
+                                    Icons.chevron_right_rounded,
+                                    color: Colors.grey.shade900,
+                                  ),
+                                ],
                               ),
                             ),
-                        ],
-                      );
-                    }
-                    return Container();
-                  })
+                          ),
+                      ],
+                    );
+                  }
+                  return Container();
+                },
+              ),
             ],
           ),
         ),
