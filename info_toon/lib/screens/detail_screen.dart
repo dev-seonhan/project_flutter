@@ -3,6 +3,7 @@ import 'package:info_toon/models/webtoon_detail_model.dart';
 import 'package:info_toon/models/webtoon_episode_model.dart';
 import 'package:info_toon/services/api_service.dart';
 import 'package:info_toon/widgets/episode_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailScreen extends StatefulWidget {
   final String title, thumb, id;
@@ -22,6 +23,24 @@ class _DetailScreenState extends State<DetailScreen> {
   late Future<WebtoonDetailModel> webtoon;
   late Future<List<WebtoonEpisodeModel>> episodes;
 
+  late SharedPreferences prefs;
+  bool isLiked = false;
+
+  Future initPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+
+    final likedToons = prefs.getStringList('likedToons');
+    if (likedToons != null) {
+      if (likedToons.contains(widget.id) == true) {
+        setState(() {
+          isLiked = true;
+        });
+      }
+    } else {
+      await prefs.setStringList('likedToons', []);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -36,6 +55,24 @@ class _DetailScreenState extends State<DetailScreen> {
      * widget. 을 이용하여 데이터들을 참조하는 이유.
      * StatelessWidget과는 다르게 StatefulWidget의 경우는 분리된 다른 클래스에서 해당 property들을 참조할 수 있도록 변환되므로 해당 부모의 property를 참조할 수 있도록 해당 키워드를 사용한다.
      */
+
+    initPrefs();
+  }
+
+  onHeartTap() async {
+    final likedToons = prefs.getStringList('likedToons');
+    if (likedToons != null) {
+      if (isLiked) {
+        likedToons.remove(widget.id);
+      } else {
+        likedToons.add(widget.id);
+      }
+      await prefs.setStringList('likedToons', likedToons);
+
+      setState(() {
+        isLiked = !isLiked;
+      });
+    }
   }
 
   @override
@@ -53,6 +90,14 @@ class _DetailScreenState extends State<DetailScreen> {
         foregroundColor: Colors.green,
         backgroundColor: Colors.white,
         elevation: 1,
+        actions: [
+          IconButton(
+            onPressed: onHeartTap,
+            icon: Icon(
+              isLiked ? Icons.favorite : Icons.favorite_border_rounded,
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
