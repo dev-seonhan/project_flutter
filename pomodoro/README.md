@@ -1,16 +1,11 @@
 # pomodoro
 
-A new Flutter project.
+A new Pomodoro project.
+The method of focusing on work for 25 minutes using a timer and then resting for 5 minutes is called Pomodoro.
 
-## Getting Started
+The project was written to improve concentration by repeating a 25-minute timer.
 
-This project is a starting point for a Flutter application.
+## Screenshot
+![MainScreen](../pomodoro/capture/main.png)
+![RunningScreen](../pomodoro/capture/running.png)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
